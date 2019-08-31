@@ -1,0 +1,6 @@
+bumpversion
+pip-tools
+python-dotenv[cli]
+tox
+tox-travis
+twine
