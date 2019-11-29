@@ -1,6 +1,9 @@
 bumpversion
+flake8
 pip-tools
+pycodestyle
 python-dotenv[cli]
 tox
 tox-travis
 twine
+wheel

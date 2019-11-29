@@ -14,7 +14,6 @@ relative_site_packages = os.path.relpath(
 
 
 class BaseTwineCommand(Command):
-    '''Run twine on distribution files.'''
 
     user_options = []
 
@@ -39,15 +38,30 @@ class BaseTwineCommand(Command):
 
 
 class TwineCheckCommand(BaseTwineCommand):
-    '''Check distribution files with twine.'''
 
+    description = 'Check distribution files with twine'
     twine_subcommand = 'check'
 
 
 class TwineUploadCommand(BaseTwineCommand):
-    '''Upload distribution files with twine.'''
 
+    description = 'Upload distribution files with twine'
     twine_subcommand = 'upload'
+
+
+class UnsupportedCommand(Command):
+
+    description = 'This command is not supported'
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        sys.exit('This command is not supported!')
 
 
 setup(
@@ -61,6 +75,6 @@ setup(
     cmdclass={
         'twine_check': TwineCheckCommand,
         'twine_upload': TwineUploadCommand,
-        #'upload'
+        'unsupported': UnsupportedCommand,
     },
 )
