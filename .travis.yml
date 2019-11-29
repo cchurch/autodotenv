@@ -9,6 +9,6 @@ python:
   - "3.7"
   - "3.8"
 install:
-  - pip install -r requirements.txt
+  - pip install "tox-travis==0.12" "tox==3.14.1"
 script:
   - tox -v
