@@ -9,6 +9,6 @@ python:
   - "3.7"
   - "3.8"
 install:
-  - pip install "tox-travis==0.12" "tox==3.14.1"
+  - pip install docutils tox tox-travis
 script:
   - tox -v
