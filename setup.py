@@ -3,14 +3,10 @@
 # Python
 import os
 import sys
-from distutils import sysconfig
 
 # Setuptools
 from setuptools import Command, setup
-
-relative_site_packages = os.path.relpath(
-    sysconfig.get_python_lib(), sys.prefix,
-)
+import setuptools.command.build_py as orig_build_py
 
 
 class BaseTwineCommand(Command):
@@ -64,8 +60,14 @@ class UnsupportedCommand(Command):
         sys.exit('This command is not supported!')
 
 
+class BuildPyCommand(orig_build_py.build_py):
+
+    def run(self):
+        orig_build_py.build_py.run(self)
+        self.copy_file('autodotenv.pth', os.path.join(self.build_lib, 'autodotenv.pth'), preserve_mode=False)
+
+
 setup(
-    data_files=[(relative_site_packages, ['autodotenv.pth'])],
     options={
         'install': {  # Messes with other installs if set in setup.cfg.
             'single_version_externally_managed': '1',
@@ -73,6 +75,7 @@ setup(
         },
     },
     cmdclass={
+        'build_py': BuildPyCommand,
         'twine_check': TwineCheckCommand,
         'twine_upload': TwineUploadCommand,
         'unsupported': UnsupportedCommand,
