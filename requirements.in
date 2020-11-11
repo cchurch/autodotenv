@@ -5,6 +5,6 @@ pycodestyle
 python-dotenv[cli]
 setuptools-twine
 tox
-tox-travis
+tox-gh-actions
 twine
 wheel
